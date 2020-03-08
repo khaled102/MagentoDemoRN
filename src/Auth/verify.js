@@ -27,7 +27,7 @@ export default class VerifyScreen extends React.Component {
         CodeStatus:null,
         modalVisible:true,
         CodeColor:'#00000030',
-        TextColor:'#008BFF'
+        TextColor:'#00000030'
     };
   }
   componentDidMount(){
@@ -50,9 +50,9 @@ export default class VerifyScreen extends React.Component {
   }
   handle_confirm = (code) => {
     //***** set code state ********/
-    this.setState({digits:code});
+    this.setState({digits:code,TextColor:'#008BFF'});
     //********** error mode ********/
-    this.setState({CodeStatus: 0, CodeColor:'#FF3B30', TextColor:'#FF3B30'});
+    // this.setState({CodeStatus: 0, CodeColor:'#FF3B30', TextColor:'#FF3B30'});
   }
   render() {
     let spinner;
@@ -81,22 +81,11 @@ export default class VerifyScreen extends React.Component {
           :
           <Text style={styles.TimerText}>{this.state.Timer}s</Text>
           }
-          {this.state.Timer == 0  ?
-          <Text style={[styles.ResendText,styles.TextVerify,{color:'#008BFF'}]}>Resend code</Text>
-          :
-          <Text style={[styles.ResendText,styles.TextVerify]}>Resend code</Text>
-          }
-          {this.state.digits ?
+          <Text style={[styles.ResendText,styles.TextVerify,this.state.Timer == 0  ? {color:'#008BFF'} : null]}>Resend code</Text>
           <TouchableOpacity
-            style={[styles.confrimView,{backgroundColor:'#008BFF'}]}>
-            <Text style={[styles.TextVerify,styles.TextConfirm,{color:'#FFFFFF'}]}>Verify code</Text>
+            style={[styles.confrimView,this.state.digits ?{backgroundColor:'#008BFF'}: null]}>
+            <Text style={[styles.TextVerify,styles.TextConfirm,this.state.digits ? {color:'#FFFFFF'}: null]}>Verify code</Text>
           </TouchableOpacity>
-          :
-          <TouchableOpacity
-            style={[styles.confrimView]}>
-            <Text style={[styles.TextVerify,styles.TextConfirm]}>Verify code</Text>
-          </TouchableOpacity>
-          }
           <Modal
             animationType="fade"
             transparent={false}

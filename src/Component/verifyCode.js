@@ -36,7 +36,9 @@ const VerifyCode = (prop) => {
         renderCell={({index, symbol, isFocused}) => (
           <Text
             key={index}
-            style={[styles.cell,{borderColor:prop.borderColor}, isFocused && styles.focusCell,{color:prop.TextColor} ]}
+            style={   
+              isFocused ? [styles.cell,{borderColor:'#008BFF',color:'#008BFF'}] :
+              symbol !=='0' && value.length < 5 ? [styles.cell,{borderColor:prop.borderColor,color:'#008BFF'}]  :  [styles.cell,{borderColor:prop.borderColor,color:prop.TextColor} ] }
             onLayout={getCellOnLayoutHandler(index)}>
             {symbol || (isFocused ? <Cursor /> : null)}
           </Text>
